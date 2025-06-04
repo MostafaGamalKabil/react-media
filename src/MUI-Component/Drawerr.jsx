@@ -7,14 +7,19 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Button,
+  useTheme,
+  IconButton,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import CreateIcon from "@mui/icons-material/Create";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from 'react-router-dom';
-const Drawerr = ({ drawerWidth }) => {
+import { useNavigate } from "react-router-dom";
+import { Brightness1, Brightness4, Brightness7 } from "@mui/icons-material";
+const Drawerr = ({ drawerWidth, setDarkMode }) => {
+  const theme = useTheme();
   const navigate = useNavigate();
   return (
     <Drawer
@@ -29,14 +34,32 @@ const Drawerr = ({ drawerWidth }) => {
       variant="permanent"
       anchor="left"
     >
-      <Toolbar />
-      <Divider />
-
       <List>
+        <ListItem sx={{ display: "flex", justifyContent: "center" , mb:"15px" }} disablePadding>
+          <IconButton
+            
+            color="inherit"
+            onClick={() => {
+              localStorage.setItem("mode" , theme.palette.mode === "dark" ? "light" : "dark")
+              setDarkMode(theme.palette.mode === "dark" ? "light" : "dark");
+            }}
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7 sx={{ color: "orange" }} />
+            ) : (
+              <Brightness4 />
+            )}
+          </IconButton>
+        </ListItem>
+
+          <Divider />
+
         <ListItem disablePadding>
-          <ListItemButton onClick={() => {
-            navigate("/")
-          }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -45,9 +68,11 @@ const Drawerr = ({ drawerWidth }) => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => {
-            navigate("/create")
-          }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/create");
+            }}
+          >
             <ListItemIcon>
               <CreateIcon />
             </ListItemIcon>
@@ -81,7 +106,6 @@ const Drawerr = ({ drawerWidth }) => {
             <ListItemText primary="Settings" />
           </ListItemButton>
         </ListItem>
-
       </List>
     </Drawer>
   );
