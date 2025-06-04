@@ -13,8 +13,9 @@ import CreateIcon from "@mui/icons-material/Create";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import { useNavigate } from 'react-router-dom';
 const Drawerr = ({ drawerWidth }) => {
+  const navigate = useNavigate();
   return (
     <Drawer
       sx={{
@@ -33,7 +34,9 @@ const Drawerr = ({ drawerWidth }) => {
 
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {
+            navigate("/")
+          }}>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -42,7 +45,9 @@ const Drawerr = ({ drawerWidth }) => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {
+            navigate("/create")
+          }}>
             <ListItemIcon>
               <CreateIcon />
             </ListItemIcon>
