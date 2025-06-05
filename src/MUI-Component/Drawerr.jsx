@@ -16,9 +16,11 @@ import CreateIcon from "@mui/icons-material/Create";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useNavigate } from "react-router-dom";
-import { Brightness1, Brightness4, Brightness7 } from "@mui/icons-material";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
+
 const Drawerr = ({ drawerWidth, setDarkMode }) => {
+  const currentLocation = useLocation()
   const theme = useTheme();
   const navigate = useNavigate();
   return (
@@ -54,7 +56,9 @@ const Drawerr = ({ drawerWidth, setDarkMode }) => {
 
           <Divider />
 
-        <ListItem disablePadding>
+        <ListItem sx={{bgcolor: currentLocation.pathname === "/" ? theme.palette
+// @ts-ignore
+        .favColor.main : null}} disablePadding>
           <ListItemButton
             onClick={() => {
               navigate("/");
@@ -67,7 +71,9 @@ const Drawerr = ({ drawerWidth, setDarkMode }) => {
           </ListItemButton>
         </ListItem>
 
-        <ListItem disablePadding>
+        <ListItem sx={{bgcolor: currentLocation.pathname === "/create" ? theme.palette
+// @ts-ignore
+        .favColor.main : null}} disablePadding>
           <ListItemButton
             onClick={() => {
               navigate("/create");

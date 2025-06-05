@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import Appbar from "MUI-Component/Appbar";
 import Drawerr from "MUI-Component/Drawerr";
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { grey } from "@mui/material/colors";
 const drawerWidth = 240;
 
 const Root = () => {
@@ -15,12 +16,15 @@ const Root = () => {
       : "dark"
   );
   // Dark mode
-  const darkTheme = createTheme({
-    palette: {
-      // @ts-ignore
-      mode: DarkMode,
-    },
-  });
+const darkTheme = createTheme({
+  palette: {
+    // @ts-ignore
+    mode: DarkMode, // استخدام قيمة الحالة DarkMode
+    // إضافة خاصية مخصصة (مثلاً favColor) بناءً على قيمة DarkMode
+    favColor: DarkMode === "light" ? { main: grey[300] } : { main: grey[800] },
+  },
+});
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
