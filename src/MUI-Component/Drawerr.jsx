@@ -1,5 +1,4 @@
 import {
-  Toolbar,
   Drawer,
   Divider,
   List,
@@ -7,7 +6,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Button,
   useTheme,
   IconButton,
 } from "@mui/material";
@@ -17,15 +15,38 @@ import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Brightness4, Brightness7 } from "@mui/icons-material";
+import {
+  Brightness4,
+  Brightness7,
+  Create,
+  Home,
+  Person,
+  Settings,
+} from "@mui/icons-material";
 
-const Drawerr = ({ drawerWidth, setDarkMode }) => {
-  const currentLocation = useLocation()
+const Drawerr = ({
+  drawerWidth,
+  setDarkMode,
+  noneORblock,
+  DrawerType,
+  setnoneORblock,
+  setDrawerType,
+}) => {
+  const currentLocation = useLocation();
   const theme = useTheme();
   const navigate = useNavigate();
+
+  const drawerList = [
+    { text: "Home", icon: <Home />, path: "/" },
+    { text: "Create", icon: <Create />, path: "/create" },
+    { text: "Profile", icon: <Person />, path: "/profile" },
+    { text: "Settings", icon: <Settings />, path: "/settings" },
+  ];
+
   return (
     <Drawer
       sx={{
+        display: { xs: noneORblock, sm: "block" },
         width: `${drawerWidth}px`,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
@@ -33,16 +54,26 @@ const Drawerr = ({ drawerWidth, setDarkMode }) => {
           boxSizing: "border-box",
         },
       }}
-      variant="permanent"
+      variant={DrawerType}
       anchor="left"
+      open={true}
+      onClose={() => {
+        setnoneORblock("none");
+        setDrawerType("permanent");
+      }}
     >
       <List>
-        <ListItem sx={{ display: "flex", justifyContent: "center" , mb:"15px" }} disablePadding>
+        <ListItem
+          sx={{ display: "flex", justifyContent: "center", mb: "15px" }}
+          disablePadding
+        >
           <IconButton
-            
             color="inherit"
             onClick={() => {
-              localStorage.setItem("mode" , theme.palette.mode === "dark" ? "light" : "dark")
+              localStorage.setItem(
+                "mode",
+                theme.palette.mode === "dark" ? "light" : "dark"
+              );
               setDarkMode(theme.palette.mode === "dark" ? "light" : "dark");
             }}
           >
@@ -54,62 +85,40 @@ const Drawerr = ({ drawerWidth, setDarkMode }) => {
           </IconButton>
         </ListItem>
 
-          <Divider />
+        <Divider />
 
-        <ListItem sx={{bgcolor: currentLocation.pathname === "/" ? theme.palette
-// @ts-ignore
-        .favColor.main : null}} disablePadding>
-          <ListItemButton
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem sx={{bgcolor: currentLocation.pathname === "/create" ? theme.palette
-// @ts-ignore
-        .favColor.main : null}} disablePadding>
-          <ListItemButton
-            onClick={() => {
-              navigate("/create");
-            }}
-          >
-            <ListItemIcon>
-              <CreateIcon />
-            </ListItemIcon>
-            <ListItemText primary="Create" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItemButton>
-        </ListItem>
+        {drawerList.map((item) => {
+          return (
+            <ListItem
+              sx={{
+                bgcolor:
+                  currentLocation.pathname === (item.path)
+                    ? // @ts-ignore
+                      theme.palette.favColor.main
+                    : null,
+              }}
+              disablePadding
+            >
+              <ListItemButton
+                onClick={() => {
+                  navigate(item.path);
+                }}
+              >
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
 
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText primary="LogOut" />
           </ListItemButton>
         </ListItem>
       </List>

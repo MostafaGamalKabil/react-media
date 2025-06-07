@@ -1,14 +1,22 @@
-import React from "react";
 
-import { Typography, AppBar, Toolbar, Link, Avatar } from "@mui/material";
 
-const Appbar = ({ drawerWidth }) => {
+import { Typography, AppBar, Toolbar, Link, Avatar, IconButton } from "@mui/material";
+import { Menu } from "@mui/icons-material";
+
+const Appbar = ({ drawerWidth , setnoneORblock , setDrawerType }) => {
+  
   return (
     <AppBar
-      sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      sx={{ width: {sm: `calc(100% - ${drawerWidth}px)`}, ml: {sm: `${drawerWidth}px` , xs : 0} }}
       position="static"
     >
       <Toolbar>
+        <IconButton onClick={() => {
+          setDrawerType("temporary")
+          setnoneORblock("block")
+        }} sx={{mr:"10px" , display : {sm:"none"}}} >
+          <Menu/>
+        </IconButton>
         <Link
           sx={{
             flexGrow: 1,
