@@ -1,12 +1,25 @@
 import { Paper, Typography, IconButton, Box } from "@mui/material";
 import "./Home.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Close } from "@mui/icons-material";
 
 const Home = () => {
+  const [myData, setmyData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3100/mydata")
+      .then((response) => response.json())
+      .then((data) => setmyData(data));
+  }, []);
+
   return (
     <Box sx={{mt:"33px"}}>
-      <Paper
+      
+
+      {myData.map((item) => {
+    return(
+          <Paper
+    
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -19,7 +32,7 @@ const Home = () => {
         }}
       >
         <Typography sx={{ ml: "16px", fontSize: "1.3em" }} variant="h5">
-          GYM
+          {item.title}
         </Typography>
         <Typography
           sx={{
@@ -30,12 +43,14 @@ const Home = () => {
           }}
           variant="h5"
         >
-          $100
+          {`$${item.price}`}
         </Typography>
         <IconButton sx={{ position: "absolute", top: "0", right: "0" }}>
           <Close sx={{ fontSize: "18px" }} />
         </IconButton>
       </Paper>
+    )
+      })}
     
     </Box>
   );

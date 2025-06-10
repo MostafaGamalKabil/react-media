@@ -4,6 +4,7 @@ import "./Create.css";
 
 import { purple } from "@mui/material/colors";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
   backgroundColor: purple[500],
@@ -12,6 +13,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 const Create = () => {
+  const  navegate = useNavigate()
   const [title, settitle] = useState("");
   const [price, setprice] = useState(0);
   return (
@@ -59,7 +61,9 @@ const Create = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({title , price}),
-          });
+          }).then(() => {
+            navegate("/")
+          })
         }}
         sx={{ mt: "22px" }}
         variant="contained"
