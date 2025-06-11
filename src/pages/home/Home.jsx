@@ -19,7 +19,7 @@ const Home = () => {
       {myData.map((item) => {
     return(
           <Paper
-    
+    key={item.id}
         sx={{
           display: "flex",
           justifyContent: "space-between",
@@ -45,7 +45,9 @@ const Home = () => {
         >
           {`$${item.price}`}
         </Typography>
-        <IconButton sx={{ position: "absolute", top: "0", right: "0" }}>
+        <IconButton onClick={() => {
+          fetch(`http://localhost:3100/mydata/${item.id}` , {method : "DELETE"})
+        }} sx={{ position: "absolute", top: "0", right: "0" }}>
           <Close sx={{ fontSize: "18px" }} />
         </IconButton>
       </Paper>

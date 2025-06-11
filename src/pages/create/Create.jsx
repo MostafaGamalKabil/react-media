@@ -17,7 +17,7 @@ const Create = () => {
   const [title, settitle] = useState("");
   const [price, setprice] = useState(0);
   return (
-    <Box component="form" sx={{ width: "380px" }}>
+    <Box autoComplete="off" component="form" sx={{ width: "380px" }}>
       <TextField
         onChange={(eo) => {
           settitle(eo.target.value);

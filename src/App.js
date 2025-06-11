@@ -31,5 +31,6 @@ function App() {
     
   );
 }
+// npx json-server --watch data/db.json --port 3100
 
 export default App;
