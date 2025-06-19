@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,7 +15,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-
+import { useRef, useState } from "react";
+import { Avatar } from "@mui/material";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -57,8 +58,80 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Appbare = () => {
+  const [ShowMobileMenu, setShowMobileMenu] = useState(false);
+  const refMenuMobile = useRef(null);
+  const [ShowBiggerScreensMenu, setShowBiggerScreensMenu] = useState(false);
+  const refMenuBiggerScreens = useRef(null);
+
+  const renderMenu = (
+    <Menu
+      anchorEl={refMenuBiggerScreens.current}
+   
+     
+ 
+      open={ShowBiggerScreensMenu}
+      onClose={() => {
+        setShowBiggerScreensMenu(false)
+      }}
+    >
+      <MenuItem onClick={() => {
+        setShowBiggerScreensMenu(false)
+      }} >Profile</MenuItem>
+      <MenuItem onClick={() => {
+        setShowBiggerScreensMenu(false)
+      }} >My account</MenuItem>
+    </Menu>
+  );
+
+  // ----------------------------------
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={refMenuMobile.current}
+      open={ShowMobileMenu}
+      onClose={() => {
+        setShowMobileMenu(false);
+      }}
+    >
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+          size="large"
+          aria-label="show 17 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+          onClick={() => {
+            setShowMobileMenu(false);
+          }}
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+
   return (
-    <div>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -76,7 +149,7 @@ const Appbare = () => {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            WebDevs
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -108,22 +181,26 @@ const Appbare = () => {
               </Badge>
             </IconButton>
             <IconButton
+            ref={refMenuBiggerScreens}
+            onClick={() => {
+              setShowBiggerScreensMenu(!ShowBiggerScreensMenu)
+            }}
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-haspopup="true"
-              //   onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar src="./images/photo.png" />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
+              onClick={() => {
+                setShowMobileMenu(!ShowMobileMenu);
+              }}
+              ref={refMenuMobile}
               size="large"
-              aria-label="show more"
               aria-haspopup="true"
-              //   onClick={handleMobileMenuOpen}
               color="inherit"
             >
               <MoreIcon />
@@ -131,7 +208,9 @@ const Appbare = () => {
           </Box>
         </Toolbar>
       </AppBar>
-    </div>
+      {renderMobileMenu}
+      {renderMenu}
+    </Box>
   );
 };
 

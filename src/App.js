@@ -48,32 +48,6 @@ function App() {
           change mode
         </Button>
 
-        <Button 
-        ref={inputElement}
-          onClick={() => {
-            setisOpen(!isOpen);
-          }}
-          sx={{ ml: "199px" }}
-          variant="contained"
-        >
-          Dashboard
-        </Button>
-
-        <Menu
-          id="basic-menu"
-          anchorEl={inputElement.current}
-          open={isOpen}
-          onClose={closeMenu}
-          slotProps={{
-            list: {
-              "aria-labelledby": "basic-button",
-            },
-          }}
-        >
-          <MenuItem onClick={closeMenu}>Profile</MenuItem>
-          <MenuItem onClick={closeMenu}>My account</MenuItem>
-          <MenuItem onClick={closeMenu}>Logout</MenuItem>
-        </Menu>
       </div>
     </ThemeProvider>
   );
