@@ -1,15 +1,17 @@
 import {
   createTheme,
-  Button,
   ThemeProvider,
   CssBaseline,
-  Menu,
-  MenuItem,
+ 
+  Stack,
+  Typography,
 
 } from "@mui/material";
 import Appbare from "Component/Appbare";
+import MyList from "Component/List";
 import { useMemo, useRef, useState } from "react";
 import getDesignTokens from "styles/MyThemes";
+import Posts from "Component/Posts";
 
 function App() {
   const [mode, setmode] = useState(
@@ -33,20 +35,16 @@ function App() {
       <CssBaseline />
       <Appbare/>
       <div className="App">
-        <Button
-          onClick={() => {
-            localStorage.setItem(
-              "currentMode",
-              theme.palette.mode === "dark" ? "light" : "dark"
-            );
+ 
+    
+    <Stack direction={"row"}>
+       <MyList setmode={setmode} theme={theme}/>
+       <Posts/>
+        <Typography sx={{flexGrow:6,border:"2px solid blue"}} variant="body1">Box3</Typography>
+    </Stack>
 
-            setmode(theme.palette.mode === "light" ? "dark" : "light");
-          }}
-          variant="text"
-          color="primary"
-        >
-          change mode
-        </Button>
+
+       
 
       </div>
     </ThemeProvider>

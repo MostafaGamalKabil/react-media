@@ -66,20 +66,25 @@ const Appbare = () => {
   const renderMenu = (
     <Menu
       anchorEl={refMenuBiggerScreens.current}
-   
-     
- 
       open={ShowBiggerScreensMenu}
       onClose={() => {
-        setShowBiggerScreensMenu(false)
+        setShowBiggerScreensMenu(false);
       }}
     >
-      <MenuItem onClick={() => {
-        setShowBiggerScreensMenu(false)
-      }} >Profile</MenuItem>
-      <MenuItem onClick={() => {
-        setShowBiggerScreensMenu(false)
-      }} >My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          setShowBiggerScreensMenu(false);
+        }}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          setShowBiggerScreensMenu(false);
+        }}
+      >
+        My account
+      </MenuItem>
     </Menu>
   );
 
@@ -131,8 +136,8 @@ const Appbare = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+ 
+      <AppBar position="sticky">
         <Toolbar>
           <IconButton
             size="large"
@@ -161,8 +166,9 @@ const Appbare = () => {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: { xs: "none", md: "flex" , alignItems: "center" } }}>
             <IconButton
+              sx={{ width: "37px", height: "37px" }}
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
@@ -172,6 +178,7 @@ const Appbare = () => {
               </Badge>
             </IconButton>
             <IconButton
+              sx={{ width: "37px", height: "37px" }}
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -181,16 +188,19 @@ const Appbare = () => {
               </Badge>
             </IconButton>
             <IconButton
-            ref={refMenuBiggerScreens}
-            onClick={() => {
-              setShowBiggerScreensMenu(!ShowBiggerScreensMenu)
-            }}
+              ref={refMenuBiggerScreens}
+              onClick={() => {
+                setShowBiggerScreensMenu(!ShowBiggerScreensMenu);
+              }}
               size="large"
               edge="end"
               aria-label="account of current user"
               color="inherit"
             >
-              <Avatar src="./images/photo.png" />
+              <Avatar
+                sx={{ width: "37px", height: "37px" }}
+                src="./images/photo.png"
+              />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -207,10 +217,12 @@ const Appbare = () => {
             </IconButton>
           </Box>
         </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
+     
+         {renderMobileMenu}
       {renderMenu}
-    </Box>
+      </AppBar>
+  
+
   );
 };
 

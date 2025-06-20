@@ -10,22 +10,18 @@ const getDesignTokens = (mode) => ({
     ...(mode === "light"
       ? {
           // palette values for light mode
-          ali: {
-            main: "#64748B",
-          },
+         
 
           favColor: {
-            main: grey[300],
+            main: "rgb(247 , 247 , 247)",
           },
         }
       : {
           // palette values for dark mode
-          ali: {
-           
-          },
+        
 
           favColor: {
-            main: grey[800],
+            main: null,
           },
         }),
   },
