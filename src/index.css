@@ -1,0 +1,15 @@
+.border {
+  border: 2px solid red;
+}
+
+@media (max-Width:"900px") {
+    .myList {
+  min-width: "200px";
+  position: "fixed";
+  left: "0";
+  top: "60px";
+  z-index: "10";
+  background-color: "#0f0f0f";
+  bottom: "0";
+}
+}

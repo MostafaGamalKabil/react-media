@@ -57,12 +57,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Appbare = () => {
+const Appbare = ({showList, setshowList}) => {
   const [ShowMobileMenu, setShowMobileMenu] = useState(false);
   const refMenuMobile = useRef(null);
   const [ShowBiggerScreensMenu, setShowBiggerScreensMenu] = useState(false);
   const refMenuBiggerScreens = useRef(null);
-
+  
   const renderMenu = (
     <Menu
       anchorEl={refMenuBiggerScreens.current}
@@ -98,7 +98,7 @@ const Appbare = () => {
       }}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <IconButton size="small" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
@@ -140,11 +140,14 @@ const Appbare = () => {
       <AppBar position="sticky">
         <Toolbar>
           <IconButton
-            size="large"
+          onClick={() => {
+            setshowList(showList === "none" ? "block" : "none")
+          }}
+            size="small"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2 , display:{xs:"flex" , md:"none"} }}
           >
             <MenuIcon />
           </IconButton>
