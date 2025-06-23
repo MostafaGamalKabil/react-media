@@ -13,8 +13,10 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 const Create = () => {
-  const  navegate = useNavigate()
+  const navegate = useNavigate();
   const [title, settitle] = useState("");
+  const [titleError, settitleError] = useState(false);
+  const [priceError, setpriceError] = useState(false);
   const [price, setprice] = useState(0);
   return (
     <Box autoComplete="off" component="form" sx={{ width: "380px" }}>
@@ -34,12 +36,13 @@ const Create = () => {
           },
         }}
         variant="filled"
+        error={titleError}
       />
 
       <TextField
         onChange={(eo) => {
           // @ts-ignore
-          setprice(Number((eo.target.value)));
+          setprice(Number(eo.target.value));
         }}
         fullWidth={true}
         label="Amount"
@@ -51,19 +54,31 @@ const Create = () => {
           },
         }}
         variant="filled"
+        error={priceError}
+        type="number"
       />
 
       <ColorButton
         onClick={() => {
-          fetch("http://localhost:3100/mydata", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({title , price}),
-          }).then(() => {
-            navegate("/")
-          })
+          settitleError(true);
+          setpriceError(true)
+          if (title) {
+            settitleError(true);
+          }
+          if (price) {
+            setpriceError(true)
+          }
+          if (title.trim()) {
+            fetch("http://localhost:3100/mydata", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ title, price }),
+            }).then(() => {
+              navegate("/");
+            });
+          }
         }}
         sx={{ mt: "22px" }}
         variant="contained"
